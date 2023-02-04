@@ -3,6 +3,7 @@ mod interpreter;
 mod runner;
 mod utils;
 
+use utils::write_template;
 use reqwest;
 
 
@@ -27,7 +28,8 @@ fn main() -> () {
                                         println!("A file with the same name already exists");
                                         return
                                     }
-                                    println!("Create template file {}", &argument);
+                                    let mut template_file = std::fs::File::create(template_path).expect("Something went wrong 🥲");
+                                    write_template(&mut template_file);
                                 }
                             }
                         },

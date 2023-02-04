@@ -1,0 +1,7 @@
+# This is a basic certus test
+# The lines preceded by a # are ignored by the interpreter
+GET https://jsonplaceholder.typicode.com/todos/1
+[CFG]
+# Here goes all the configuration for your request, such as headers and body
+[EXPECT]
+HTTP 200 
