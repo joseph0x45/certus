@@ -3,8 +3,11 @@ mod interpreter;
 mod runner;
 mod utils;
 
+use std::path::Path;
+
 use utils::write_template;
-use reqwest;
+use interpreter::interpreter;
+// use reqwest;
 
 
 fn main() -> () {
@@ -41,7 +44,15 @@ fn main() -> () {
                 },
                 _=>{
                     //User wants to run a file or a directory
-                    println!("{}", command)
+                    if Path::new(&command).is_dir(){
+                        println!("certus doesn't support running tests in a directory yet. Please pass a certus file instead");
+                        return
+                    }
+                    if !command.ends_with(".certus") {
+                        println!("This is not a certus file");
+                        return
+                    }
+                    interpreter(&command);
                 }
             }
         },
