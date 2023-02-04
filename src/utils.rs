@@ -1,4 +1,4 @@
-use std::{fs::File, io::Write};
+use std::{fs::File, io::Write, collections::HashMap};
 
 
 
@@ -17,4 +17,11 @@ HTTP 200
 # body.data: "something not found"
 "#;
     template_file.write(template.as_bytes()).expect("Something went wrong 🥲");
+}
+
+pub struct CertusTest{
+    pub verb: String,
+    pub endpoint: String,
+    pub header: HashMap<String, String>
+
 }
