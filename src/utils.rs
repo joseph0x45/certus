@@ -25,3 +25,9 @@ pub struct CertusTest{
     pub header: HashMap<String, String>
 
 }
+
+impl Default for CertusTest {
+    fn default() -> Self {
+        CertusTest { verb: "".to_string(), endpoint: "".to_string(), header: HashMap::new() }
+    }
+}
