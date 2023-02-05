@@ -1,4 +1,3 @@
-mod checker;
 mod interpreter;
 mod runner;
 mod utils;
