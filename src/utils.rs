@@ -23,12 +23,23 @@ pub struct CertusTest{
     pub method: Method,
     pub endpoint: String,
     pub headers: HeaderMap,
-    pub body: Value
+    pub body: Value,
+    pub expected_status: u16,
+    pub expected_headers: HeaderMap,
+    pub expected_body: Value,
 
 }
 
 impl Default for CertusTest {
     fn default() -> Self {
-        CertusTest { method: Method::from_str("GET").unwrap(), endpoint: "".to_string(), headers: HeaderMap::new(), body: Value::default() }
+        CertusTest { 
+            method: Method::from_str("GET").unwrap(), 
+            endpoint: "".to_string(), 
+            headers: HeaderMap::new(), 
+            body: Value::default(), 
+            expected_status:200,
+            expected_headers: HeaderMap::new(),
+            expected_body: Value::default() 
+        }
     }
 }

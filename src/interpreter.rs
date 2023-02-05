@@ -121,6 +121,38 @@ pub async fn interpreter( certus_file: &str ){
                     return
                 }
             }
+            // println!("Here");
+            //Retrieve expected HTTP status
+            let mut read_status = false;
+            for line in content.lines(){
+                if line.trim()=="[EXPECT]" {
+                    read_status = true;
+                    continue;
+                }
+                if line.trim().starts_with("#") {
+                    continue;
+                }
+                if line.trim()==""{
+                    continue;
+                }
+                if line.trim().starts_with("HTTP") & read_status{
+                    let splitted : Vec<&str> = line.split(" ").collect();
+                    if splitted.len()==2{
+                        match u16::from_str(splitted[1])  {
+                            Ok(status)=>{
+                                certus_test.expected_status = status;
+                                break;
+                            },
+                            Err(_)=>{
+                                println!("Invalid HTTP status code {}", splitted[1]);
+                                return ;
+                            }
+                        }
+                    }
+                    println!("Failed to parse expected HTTP status code");
+                    return;
+                }
+            }
             run(certus_test).await;
         },
         Err(_)=>{
