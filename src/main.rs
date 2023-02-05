@@ -7,7 +7,6 @@ use std::path::Path;
 use tokio;
 use utils::write_template;
 use interpreter::interpreter;
-use colored::*;
 
 #[tokio::main]
 async fn main() -> () {

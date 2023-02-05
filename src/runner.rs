@@ -18,17 +18,19 @@ pub async fn run( test: CertusTest ){
                 println!("{}", error_message);
                 return
             }
-            
-            let response_headers = response.headers();
-            let response_text = &response.text().await;
-            match response_text {
-                Ok(response)=>{
+            let success_message = std::format!("Test passed").color("green");          
+            println!("{}", success_message);
+            return
+            // let response_headers = response.headers();
+            // let response_text = &response.text().await;
+            // match response_text {
+            //     Ok(response)=>{
                     
-                },
-                Err(err)=>{
-                    println!("Failed to parse response text {}", err);
-                }
-            }
+            //     },
+            //     Err(err)=>{
+            //         println!("Failed to parse response text {}", err);
+            //     }
+            // }
         },
         Err(err)=>{
             println!("Request failed {}", err)
