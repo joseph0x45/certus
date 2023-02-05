@@ -89,7 +89,8 @@ pub async fn interpreter( certus_file: &str ){
                     }
                 },
                 Err(_)=>{
-                    println!("Failed to parse headers.")
+                    println!("Failed to parse headers.");
+                    return;
                 }
             }
             //Retrieve body

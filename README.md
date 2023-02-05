@@ -25,7 +25,7 @@ This will create a new file named "example.certus" that contains boilerplate for
 It usually looks like this
 ![image](image.png)
 
-A certus file contains 3 parts, the first part is where you define the method and the url to send the request to:
+A certus file contains 4 parts, the first part is where you define the method and the url to send the request to:
 
 `GET https://jsonplaceholder.typicode.com/todos/1` means that you want to send a GET request to the specified url. certus will error out if the url is not a valid http endpoint. You can also use lowercase for methods so get and GET are valid, but gET is not valid
 

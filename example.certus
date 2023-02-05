@@ -4,7 +4,7 @@ GET https://jsonplaceholder.typicode.com/todos/1
 [HEADERS]
 # Here goes your request headers
 {
-
+    Authorization:"Bearer token"
 }
 [BODY]
 {
