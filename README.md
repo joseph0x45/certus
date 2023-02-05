@@ -6,13 +6,13 @@ Why the name? certus means certain or definite in latin, I thought it would be a
 # Installation
 
 ## Windows
-- Download the zipped folder from the releases page
+- Download the zipped folder from the [releases](https://github.com/TheWisePigeon/certus/releases) page
 - Extract it and you will get a folder that contains the certus executable and a batch file
 - Move the extracted folder to c:\Program Files\
 - Add the folder to your PATH
 
 ## Ubuntu
-- Download the certus executable from the releases page
+- Download the certus executable from the [releases](https://github.com/TheWisePigeon/certus/releases) page
 - Make it executable by running **chmod +x certus**
 - Move the executable under /usr/bin/certus
 
