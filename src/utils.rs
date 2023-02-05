@@ -7,14 +7,18 @@ pub fn write_template( template_file: &mut File ){
 r#"# This is a basic certus test
 # The lines preceeded by a '#' are ignored by the interpreter
 GET https://jsonplaceholder.typicode.com/todos/1
-[CFG]
-# Here goes all the configuration for your request, such as headers and body
+[HEADERS]
+# Here goes your request headers
+{
+
+}
+[BODY]
+{
+
+}
 [EXPECT]
-# This is where you specify the status code you expect and what certus must do when it gets such codes
-HTTP 200 
-# You can access the body and header of the response and make assertions on it for further test validation
-# HTTP 404
-# body.data: "something not found"
+# This is where you specify the status code you expect
+HTTP 200
 "#;
     template_file.write(template.as_bytes()).expect("Something went wrong 🥲");
 }
