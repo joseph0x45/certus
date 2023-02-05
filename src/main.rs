@@ -17,10 +17,9 @@ async fn main() -> () {
         Some(command)=>{
             match command.as_str() {
                 "help"=>{
-                    println!("Show certus help message")
+                    println!("Read certus docs here https://github.com/TheWisePigeon/certus/tree/v0.1.0#readme")
                 },
                 "generate"=>{
-                    println!("Generate certus template file");
                     match argument {
                         Some(argument)=>{
                             match argument.as_str() {
@@ -36,12 +35,13 @@ async fn main() -> () {
                                     }
                                     let mut template_file = std::fs::File::create(template_path).expect("Something went wrong 🥲");
                                     write_template(&mut template_file);
+                                    println!("Template file generated");
                                 }
                             }
                         },
                         None=>{
                             // let template_path = std::path::Path::new("template.certus");
-                            println!("You must provide a name. Run `certus help` to see certus documentation")
+                            println!("You must provide a name. Read the docs here https://github.com/TheWisePigeon/certus/tree/v0.1.0#readme")
                         }
                     }
                 },
@@ -60,7 +60,7 @@ async fn main() -> () {
             }
         },
         None=>{
-            println!("Show certus help message");
+            println!("Learn how to use certus here https://github.com/TheWisePigeon/certus/tree/v0.1.0#readme");
         }
     }
 }
