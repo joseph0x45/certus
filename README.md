@@ -1,2 +1,2 @@
 # CERTUS
-certus is a basic and easy to use http test runner
+certus is a basic and easy to use http test runner.

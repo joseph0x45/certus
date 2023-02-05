@@ -54,6 +54,9 @@ pub async fn interpreter( certus_file: &str ){
                 }
                 headers.push_str(line);
             }
+            if headers==""{
+                headers.push_str("{}");
+            }
             let value: Result<Value, Error> = serde_json::from_str(headers.as_str());
             match value {
                 Ok(headers)=>{
@@ -104,6 +107,9 @@ pub async fn interpreter( certus_file: &str ){
                     continue;
                 }
                 body.push_str(line);
+            }
+            if body==""{
+                body.push_str("{}");
             }
             let value: Result<Value, Error> = serde_json::from_str(body.as_str());
             match value {

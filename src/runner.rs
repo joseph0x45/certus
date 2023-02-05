@@ -11,7 +11,17 @@ pub async fn run( test: CertusTest ){
     let response = certus_request.send().await;
     match response {
         Ok(response)=>{
-            println!("{}", response.status())
+            let response_status = response.status();
+            let response_headers = response.headers();
+            let response_text = &response.text().await;
+            match response_text {
+                Ok(response)=>{
+                    
+                },
+                Err(err)=>{
+                    println!("Failed to parse response text {}", err);
+                }
+            }
         },
         Err(err)=>{
             println!("Request failed {}", err)
