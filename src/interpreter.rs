@@ -1,8 +1,8 @@
 use std::str::FromStr;
-
+use std::collections::HashMap;
 use crate::utils::CertusTest;
 use serde_json::{Value, Error};
-use reqwest::Method;
+use reqwest::{Method, header::{HeaderValue, HeaderName}};
 use crate::runner::run;
 
 pub async fn interpreter( certus_file: &str ){
@@ -53,7 +53,41 @@ pub async fn interpreter( certus_file: &str ){
                     continue;
                 }
                 headers.push_str(line);
-                headers.push_str("\n");
+            }
+            let value: Result<Value, Error> = serde_json::from_str(headers.as_str());
+            match value {
+                Ok(headers)=>{
+                    let mut headers_hashmap: HashMap<String, String> = HashMap::default();
+                    if let Value::Object(map) = headers{
+                        for(key, val) in map{
+                            headers_hashmap.insert(key, val.as_str().unwrap().to_string());
+                        }
+                    }
+                    for (key, val) in headers_hashmap{
+                        let header_name = HeaderName::from_str(key.as_str());
+                        match header_name {
+                            Ok(valid_header_name)=>{
+                                let header_value = HeaderValue::from_str(val.as_str());
+                                match header_value {
+                                    Ok(valid_header_value)=>{
+                                        certus_test.headers.insert(valid_header_name, valid_header_value);
+                                    },
+                                    Err(_)=>{
+                                        println!("Invalid header value {}", &val);
+                                        return
+                                    }
+                                }
+                            },
+                            Err(_)=>{
+                                println!("Invalid header name {}", &key);
+                                return
+                            }
+                        }
+                    }
+                },
+                Err(_)=>{
+                    println!("Failed to parse headers.")
+                }
             }
             //Retrieve body
             let mut body = "".to_string();
