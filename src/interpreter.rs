@@ -1,8 +1,11 @@
+use std::str::FromStr;
+
 use crate::utils::CertusTest;
 use serde_json::{Value, Error};
 use reqwest::Method;
+use crate::runner::run;
 
-pub fn interpreter( certus_file: &str ){
+pub async fn interpreter( certus_file: &str ){
     let file_reader = std::fs::read_to_string(certus_file);
     let mut certus_test = CertusTest::default();
     match file_reader {
@@ -17,12 +20,11 @@ pub fn interpreter( certus_file: &str ){
             let mut first_line = cleaned_directives[0].to_string();
             first_line = first_line.trim().to_string();
             let verb_and_endpoint: Vec<&str> = first_line.split_whitespace().collect();
-
             if verb_and_endpoint.len()!=2{
                 println!("Error while reading verb and endpoint. Please refeer to the documentation to see how to write certus files");
                 return
             }
-            let test_method = Method::from_bytes(verb_and_endpoint[0].as_bytes());
+            let test_method = Method::from_str(verb_and_endpoint[0]);
             match test_method {
                 Ok(method)=>{
                     certus_test.method = method;
@@ -72,13 +74,14 @@ pub fn interpreter( certus_file: &str ){
             let value: Result<Value, Error> = serde_json::from_str(body.as_str());
             match value {
                 Ok(json_body)=>{
-                    println!("{:?}", json_body)
+                    certus_test.body = json_body;
                 },
                 Err(_)=>{
                     println!("Body serialization failed. Make sure you wrote a valid JSON");
                     return
                 }
             }
+            run(certus_test).await;
         },
         Err(_)=>{
             println!("Something went wrong 🥲\nAre you sure this file exists?");

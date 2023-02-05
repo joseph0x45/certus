@@ -4,12 +4,12 @@ mod runner;
 mod utils;
 
 use std::path::Path;
-
+use tokio;
 use utils::write_template;
 use interpreter::interpreter;
 
-
-fn main() -> () {
+#[tokio::main]
+async fn main() -> () {
     let command = std::env::args().nth(1);
     let argument = std::env::args().nth(2);
 
@@ -51,7 +51,7 @@ fn main() -> () {
                         println!("This is not a certus file");
                         return
                     }
-                    interpreter(&command);
+                    interpreter(&command).await;
                 }
             }
         },
