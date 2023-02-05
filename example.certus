@@ -1,0 +1,15 @@
+# This is a basic certus test
+# The lines preceeded by a '#' are ignored by the interpreter
+GET https://jsonplaceholder.typicode.com/todos/1
+[HEADERS]
+# Here goes your request headers
+{
+
+}
+[BODY]
+{
+
+}
+[EXPECT]
+# This is where you specify the status code you expect
+HTTP 200
