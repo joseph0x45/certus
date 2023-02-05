@@ -1,6 +1,8 @@
 # CERTUS
 certus is a basic and easy to use http test runner.
 
+Why the name? certus means certain or definite in latin, I thought it would be a great fit for the tool
+
 # Installation
 
 ## Windows
