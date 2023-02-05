@@ -25,6 +25,10 @@ async fn main() -> () {
                         Some(argument)=>{
                             match argument.as_str() {
                                 _=>{
+                                    if !argument.ends_with(".certus"){
+                                        println!("Template file name must have .certus extension");
+                                        return
+                                    }
                                     let template_path = std::path::Path::new(&argument);
                                     if template_path.exists(){
                                         println!("A file with the same name already exists");
