@@ -36,7 +36,7 @@ The [BODY] delimiter marks the end of the header. By default the body is json, r
 And last the [EXPECT] delimiter marks the end of the body and it is the part where you tell certus what response status you expect by using the syntax **HTTP status_code**.
 
 # Roadmap
-In the coming version certus will be able to validate the headers and body of the response. It will also be able to run multiple tests when passed a directory and even multiple tests in a certus file
+In the coming version certus will be able to validate the headers and body of the response. It will also be able to run multiple tests when passed a directory and even multiple tests in a certus file. certus will also be able to do benchmarks.
 
 # Contribution
-Contributions are welcome, as an open source noob I don't really have any contribution rule so just feel free to make a pull request.
+Contributions are welcome, as an open source noob I don't really have any contribution rule so just feel free to make a pull request. Just create an issue if you encounter any errors.
