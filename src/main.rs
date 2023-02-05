@@ -7,7 +7,6 @@ use std::path::Path;
 
 use utils::write_template;
 use interpreter::interpreter;
-// use reqwest;
 
 
 fn main() -> () {

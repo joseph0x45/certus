@@ -1,6 +1,6 @@
 use crate::utils::CertusTest;
-use crate::checker::{valid_verb_and_endpoint};
 use serde_json::{Value, Error};
+use reqwest::Method;
 
 pub fn interpreter( certus_file: &str ){
     let file_reader = std::fs::read_to_string(certus_file);
@@ -22,12 +22,37 @@ pub fn interpreter( certus_file: &str ){
                 println!("Error while reading verb and endpoint. Please refeer to the documentation to see how to write certus files");
                 return
             }
-            if !valid_verb_and_endpoint(verb_and_endpoint[0], verb_and_endpoint[1]){
-                return
+            let test_method = Method::from_bytes(verb_and_endpoint[0].as_bytes());
+            match test_method {
+                Ok(method)=>{
+                    certus_test.method = method;
+                },
+                Err(_)=>{
+                    println!("Invalid HTTP method {}", verb_and_endpoint[0]);
+                    return
+                }
             }
-            certus_test.verb = verb_and_endpoint[0].to_string();
             certus_test.endpoint = verb_and_endpoint[1].to_string();
-
+            //Retrieve headers
+            let mut headers = "".to_string();
+            let mut read_headers = false;
+            for line in content.lines(){
+                if line.trim()=="[BODY]" {
+                    break;
+                }
+                if line.trim()=="[HEADERS]"{
+                    read_headers = true;
+                    continue;
+                }
+                if (line.trim()!="[HEADERS]") & (read_headers==false) {
+                    continue;
+                }
+                if line.trim().starts_with("#") || line.trim()==""{
+                    continue;
+                }
+                headers.push_str(line);
+                headers.push_str("\n");
+            }
             //Retrieve body
             let mut body = "".to_string();
             let mut read_body: bool = false;

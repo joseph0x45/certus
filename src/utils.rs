@@ -1,6 +1,6 @@
-use std::{fs::File, io::Write, collections::HashMap};
-
-
+use std::{fs::File, io::Write, str::FromStr};
+use reqwest::{Method, header::HeaderMap};
+use serde_json::Value;
 
 pub fn write_template( template_file: &mut File ){
     let template: &str = 
@@ -20,14 +20,15 @@ HTTP 200
 }
 
 pub struct CertusTest{
-    pub verb: String,
+    pub method: Method,
     pub endpoint: String,
-    pub header: HashMap<String, String>
+    pub headers: HeaderMap,
+    pub body: Value
 
 }
 
 impl Default for CertusTest {
     fn default() -> Self {
-        CertusTest { verb: "".to_string(), endpoint: "".to_string(), header: HashMap::new() }
+        CertusTest { method: Method::from_str("GET").unwrap(), endpoint: "".to_string(), headers: HeaderMap::new(), body: Value::default() }
     }
 }
